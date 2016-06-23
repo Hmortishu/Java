@@ -540,11 +540,20 @@ public class trab_1_0 extends JFrame
 		lbrouter.setBounds((dim.width/11)-25,(dim.height/2) + 120,220,35);
 		router.add(lbrouter);
 		
-		
-		
+		j = 0 ;
+		for(int i =  0 ; i < 3 ; i++)
+		{
+			lbrouter = new JLabel(stRouter[i]);
+			lbrouter.setFont(tituloA);
+			lbrouter.setForeground(Color.RED);
+			lbrouter.setBounds((dim.width/11)-25,(dim.height/2) + 120,220,35);
+			router.add(lbrouter);
+		}
+			
+			
 		setBounds(5,5,dim.width - 10, dim.height - 50);
 		setVisible(true);
-		setResizable(false);
+		setResizable(true);
 	}
 
 	public static void main(String [] args)
