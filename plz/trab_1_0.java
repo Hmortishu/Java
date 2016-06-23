@@ -13,6 +13,15 @@ import javax.swing.JComboBox;
 public class trab_1_0 extends JFrame
 {
 
+	String [] stSNM = 
+		{
+			"255.255.255.252",
+			"255.255.255.248",
+			"255.255.255.224",
+			"255.255.255.192",
+			"255.255.255.128"
+		};
+	
 	JMenuBar mnb;
 	JMenu mn1,mn2;
 	JMenuItem [] mni = new JMenuItem[3];
@@ -54,6 +63,14 @@ public class trab_1_0 extends JFrame
 	JCheckBox [] cbIntlanrout = new JCheckBox[8];
 	JComboBox [] cbIntlanport = new JComboBox[8];
 	ArrayList<String> CBIntlanport = new ArrayList<String>();
+	JTextField [] tfipaddlanRouter = new JTextField[8];
+	JComboBox [] cdSNMlanrouter = new JComboBox[8];
+	ArrayList<String> CBsnmlanport = new ArrayList<String>();
+	JRadioButton[] rbsubsimlanrouter = new JRadioButton[8];
+	JRadioButton[] rbsubnaolanrouter = new JRadioButton[8];
+	ButtonGroup [] bgsublanrouter = new ButtonGroup[8];
+	JTextField [] tfRedelanrouter = new JTextField[8];
+	
 	
 	public trab_1_0()
 	{
@@ -414,9 +431,9 @@ public class trab_1_0 extends JFrame
 		for(int i = 0 ; i < 8 ; i++ )
 		{
 			cbIntlanrout[i] = new JCheckBox("Interface " + i);
-			cbIntlanrout[i].setBounds((dim.width/11) - 60,(dim.height/2) - 60 + j, 90, 15);
+			cbIntlanrout[i].setBounds((dim.width/11) - 60,(dim.height/2) - 60 + j, 90, 17);
 			router.add(cbIntlanrout[i]);
-			j = j + 15;
+			j = j + 17;
 		}
 		
 		for(j = 0; j < 5 ; j++)
@@ -436,10 +453,94 @@ public class trab_1_0 extends JFrame
 		for(int i = 0 ; i < 8 ; i++ )
 		{
 			cbIntlanport[i] = new JComboBox(arrayintlanport);
-			cbIntlanport[i].setBounds((dim.width/11) +40,(dim.height/2) - 60 + j,90,20);
+			cbIntlanport[i].setBounds((dim.width/11) +40,(dim.height/2) - 60 + j,90,17);
 			router.add(cbIntlanport[i]);
-			j = j + 15;
+			j = j + 17;
 		}
+		
+		j = 0 ;
+		for(int i = 0 ; i < 8 ; i++)
+		{
+			tfipaddlanRouter[i] = new JTextField("");
+			tfipaddlanRouter[i].setBounds((dim.width/11) +150,(dim.height/2) - 60 + j, 120 , 17 );
+			router.add(tfipaddlanRouter[i]);
+			j = j + 17;
+		}
+		
+		lbrouter = new JLabel("SubnetMask");
+		lbrouter.setFont(table);
+		lbrouter.setForeground(Color.BLUE);
+		lbrouter.setBounds((dim.width/11) + 300 , (dim.height/2) - 90, 150 , 35);
+		router.add(lbrouter);
+		
+		for(int i = 0 ; i < 5 ; i++)
+		{
+			CBsnmlanport.add(stSNM[i]);
+		}
+		
+		
+		String[] arraysnmlanport = new String[CBsnmlanport.size()];
+		for(int i = 0; i < arraysnmlanport.length; i++) {
+			arraysnmlanport[i] = CBsnmlanport.get(i);
+		}
+		
+		j = 0 ; 
+		for(int i = 0 ; i < 8 ; i++ )
+		{
+			cbvlanmskrouter[i] = new JComboBox(arraysnmlanport);
+			cbvlanmskrouter[i].setBounds((dim.width/11) + 280 , (dim.height/2) - 60 + j, 125 , 17);
+			router.add(cbvlanmskrouter[i]);
+			j = j + 17;
+		}
+		
+		lbrouter = new JLabel("Subneting");
+		lbrouter.setFont(table);
+		lbrouter.setForeground(Color.BLUE);
+		lbrouter.setBounds((dim.width/3) + 50 , (dim.height/2) - 90, 150 , 35);
+		router.add(lbrouter);
+		
+		j = 0 ;
+		for(int i = 0 ; i < 8 ; i++)
+		{
+			bgsublanrouter[i] = new ButtonGroup();
+			rbsubsimlanrouter[i] = new JRadioButton("Sim");
+			rbsubsimlanrouter[i].setBounds((dim.width/3) + 30 , (dim.height/2) - 60 + j, 50 , 17);
+			bgsublanrouter[i].add(rbsubsimlanrouter[i]);
+			router.add(rbsubsimlanrouter[i]);
+			rbsubnaolanrouter[i] = new JRadioButton("Não");
+			rbsubnaolanrouter[i].setBounds((dim.width/3) + 100 , (dim.height/2) - 60 + j, 50 , 17);
+			rbsubnaolanrouter[i].setSelected(true);
+			bgsublanrouter[i].add(rbsubnaolanrouter[i]);
+			router.add(rbsubnaolanrouter[i]);	
+			j = j + 17;
+		}
+		
+		lbrouter = new JLabel("Rede");
+		lbrouter.setFont(table);
+		lbrouter.setForeground(Color.BLUE);
+		lbrouter.setBounds((dim.width/3) + 210 , (dim.height/2) - 90, 150 , 35);
+		router.add(lbrouter);
+		
+		j = 0 ;
+		for(int i = 0 ; i < 8 ; i++ )
+		{
+		
+			tfRedelanrouter[i] = new JTextField();
+			tfRedelanrouter[i].setBounds((dim.width/3) + 175 , (dim.height/2) - 60 + j, 150 , 17);
+			tfRedelanrouter[i].setEditable(false);
+			router.add(tfRedelanrouter[i]);
+			j = j + 17;
+		}
+		
+		
+		
+		lbrouter = new JLabel("Interfaces Wan");
+		lbrouter.setFont(tituloA);
+		lbrouter.setForeground(Color.RED);
+		lbrouter.setBounds((dim.width/11)-25,(dim.height/2) + 120,220,35);
+		router.add(lbrouter);
+		
+		
 		
 		setBounds(5,5,dim.width - 10, dim.height - 50);
 		setVisible(true);
