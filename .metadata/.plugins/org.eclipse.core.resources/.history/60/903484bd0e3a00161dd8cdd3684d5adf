@@ -1,0 +1,61 @@
+package WicWacWoe_package;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class Client extends JFrame implements ActionListener {
+	private static final long serialVersionUID=1l;
+	int k = 0;
+	String [] nove = {
+			"img/1.jpg","img/2.jpg","img/3.jpg","img/4.jpg","img/5.jpg","img/6.jpg","img/7.jpg","img/8.jpg","img/9.jpg"
+	};
+	JButton [] btGalo = new JButton[9];
+	JPanel unico;
+	
+	
+	public Client()
+	{
+		super("cenas");
+		unico = new JPanel(new GridLayout(3,3));
+		for(int i = 0 ; i < 3 ; i++)
+		{
+			for(int j = 0 ; j < 3 ; j++)
+			{
+				btGalo[k] = new JButton();
+				ImageIcon img = new ImageIcon(nove[k]);
+				btGalo[k].setIcon(img);
+				btGalo[k].addActionListener(this);
+				unico.add(btGalo[k]);
+				k++;
+			}
+		}
+		
+		this.add(unico, BorderLayout.CENTER);
+		
+		setVisible(true);
+		setSize(600,400);
+	}
+	
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Client app = new Client();
+		app.addWindowListener(new WindowAdapter(){
+			public void windowClosing(WindowEvent e){
+				System.exit(0);
+			}
+		});
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+		
+		
+		
+	}
+
+}

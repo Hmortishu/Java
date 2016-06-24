@@ -19,7 +19,8 @@ public class trab_1_0 extends JFrame
 			"255.255.255.248",
 			"255.255.255.224",
 			"255.255.255.192",
-			"255.255.255.128"
+			"255.255.255.128",
+			"225.225.225.0"
 		};
 	
 	JMenuBar mnb;
@@ -50,9 +51,10 @@ public class trab_1_0 extends JFrame
 	JRadioButton [] rbna = new JRadioButton[8];
 	JRadioButton [][] rba = new JRadioButton[3][7];
 	
+	
 	//router
 	JLabel lbrouter;
-	String [] stRouter = {"Activo","Porta", "IP Address"};
+	String [] stRouter = {"Activo","Porta", "IP Address", "Subnetmask", "Clockrate", "Protocolo"};
 	JComboBox [] cbvlanrouter =  new JComboBox[8];
 	ArrayList<String> CBvlanrouter = new ArrayList<String>();
 	JComboBox [] cbvlanintrouter =  new JComboBox[8];
@@ -70,7 +72,17 @@ public class trab_1_0 extends JFrame
 	JRadioButton[] rbsubnaolanrouter = new JRadioButton[8];
 	ButtonGroup [] bgsublanrouter = new ButtonGroup[8];
 	JTextField [] tfRedelanrouter = new JTextField[8];
-	
+	//wan
+	JCheckBox [] cbIntwanrout = new JCheckBox[2];
+	JComboBox [] cbIntwanport = new JComboBox[2];
+	ArrayList<String> CBIntwanport = new ArrayList<String>();
+	JTextField [] tfipaddwanRouter = new JTextField[2];
+	JComboBox [] cdSNMwanrouter = new JComboBox[2];
+	ArrayList<String> CBsnmwanport = new ArrayList<String>();
+	JRadioButton[] rbsubsimwanrouter = new JRadioButton[2];
+	JRadioButton[] rbsubnaowanrouter = new JRadioButton[2];
+	ButtonGroup [] bgsubwanrouter = new ButtonGroup[2];
+	JTextField [] tfRedewanrouter = new JTextField[2];
 	
 	public trab_1_0()
 	{
@@ -473,7 +485,7 @@ public class trab_1_0 extends JFrame
 		lbrouter.setBounds((dim.width/11) + 300 , (dim.height/2) - 90, 150 , 35);
 		router.add(lbrouter);
 		
-		for(int i = 0 ; i < 5 ; i++)
+		for(int i = 0 ; i < 6 ; i++)
 		{
 			CBsnmlanport.add(stSNM[i]);
 		}
@@ -541,14 +553,60 @@ public class trab_1_0 extends JFrame
 		router.add(lbrouter);
 		
 		j = 0 ;
-		for(int i =  0 ; i < 3 ; i++)
+		for(int i =  0 ; i < 6 ; i++)
 		{
 			lbrouter = new JLabel(stRouter[i]);
-			lbrouter.setFont(tituloA);
-			lbrouter.setForeground(Color.RED);
-			lbrouter.setBounds((dim.width/11)-25,(dim.height/2) + 120,220,35);
+			lbrouter.setFont(table);
+			lbrouter.setForeground(Color.BLUE);
+			lbrouter.setBounds((dim.width/11)-35 + j,(dim.height/2) + 155,220,35);
 			router.add(lbrouter);
+			if(i<3)
+			j = j + 110 ;
+			else
+			j = j + 150 ;
 		}
+		
+		j = 0 ;
+		for(int i = 0; i < 2 ; i++)
+		{
+			cbIntwanrout[i] = new JCheckBox("Interface " + i);
+			cbIntwanrout[i].setBounds((dim.width/11) - 60 ,(dim.height/2) + 180 + j,90,20);
+			router.add(cbIntwanrout[i]);
+			j = j + 20;
+		}
+		
+		
+		for(j = 0; j < 7 ; j++)
+		{
+			for(int i = 0 ; i < 3 ; i++ )
+			{
+				CBIntwanport.add("int gi"+j+"/"+i);
+			}
+		}
+		
+		String[] arrayintwanport = new String[CBIntwanport.size()];
+		for(int i = 0; i < arrayintwanport.length; i++) {
+			arrayintwanport[i] = CBIntwanport.get(i);
+		}
+		
+		j = 0 ;
+		for(int i = 0 ; i < 2 ; i++ )
+		{
+			cbIntwanport[i] = new JComboBox(arrayintwanport);
+			cbIntwanport[i].setBounds((dim.width/11) + 40 ,(dim.height/2) + 180 + j,90,20);
+			router.add(cbIntwanport[i]);
+			j = j + 20;
+		}
+		
+		j = 0 ; 
+		for(int i = 0 ; i < 2 ; i++)
+		{
+			tfipaddwanRouter[i] = new JTextField();
+			tfipaddwanRouter[i].setBounds((dim.width/11) + 150 ,(dim.height/2) + 180 + j,130,20);
+			router.add(tfipaddwanRouter[i]);
+			j = j + 20;
+		}
+		
 			
 			
 		setBounds(5,5,dim.width - 10, dim.height - 50);

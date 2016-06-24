@@ -1,0 +1,75 @@
+package Electronica_package;
+
+public class Shunt {
+	int posX,posY;//coordenadas
+	boolean montagem; //horiz/vertical
+	String referencia;
+	int comp = 200;
+	
+
+	//METODOS SET
+	//METODOS SET
+	//METODOS SET
+	
+
+	// @param posX the posX to set
+	public void setPosX(int posX) {
+		this.posX = posX;
+	}
+
+	//@param posY the posY to set
+	public void setPosY(int posY) {
+		this.posY = posY;
+	}
+
+	//@param montagem the montagem to set
+	public void setMontagem(boolean montagem) {
+		this.montagem = montagem;
+	}
+
+	//@param referencia the referencia to set
+	public void setReferencia(String referencia) {
+		this.referencia = referencia;
+	}
+
+	//@param comp the comp to set
+	public void setComp(int comp) {
+		this.comp = comp;
+	}
+
+
+	
+	//METODOS GET
+	//METODOS GET
+	//METODOS GET
+	
+	//@return the posX
+	public int getPosX() {
+		return posX;
+	}
+
+	//@return the posY
+	public int getPosY() {
+		return posY;
+	}
+
+	//@return the montagem
+	public boolean isMontagem() {
+		return montagem;
+	}
+
+	//@return the referencia
+	public String getReferencia() {
+		return referencia;
+	}
+
+	//@return the comp
+	public int getComp() {
+		return comp;
+	}
+
+		public Shunt() {
+		// TODO Auto-generated constructor stub
+	}
+
+}
