@@ -10,26 +10,36 @@ import javax.swing.event.*;
 import javax.swing.border.LineBorder;
 import javax.swing.JComboBox;
 
-public class trab_1_0 extends JFrame
+public class trab_1_0 extends JFrame implements ActionListener
 {
 
 	String [] stSNM = 
 		{
 			"255.255.255.252",
 			"255.255.255.248",
+			"255.255.255.240",
 			"255.255.255.224",
 			"255.255.255.192",
 			"255.255.255.128",
 			"225.225.225.0"
 		};
-	
+	int [] intSNM =
+		{
+				4,
+				8,
+				16,
+				32,
+				64,
+				128,
+				256
+		};
 	JMenuBar mnb;
 	JMenu mn1,mn2;
 	JMenuItem [] mni = new JMenuItem[3];
 	JTable tabela;
 	JScrollPane scrollcalc;
 	JTabbedPane tabsdir;
-	JPanel calc, northcalc, southcalc, switchp, northswitch, router;
+	JPanel calc, northcalc, southcalc, switchp, northswitch, router, prog;
 	JLabel lbnetworks, lbaddress, lbsubnetmask, lbswitch;
 	JTextField tfnetworks, tfaddress, tfsubnetmask, tfhostnswitch, tfpassconsw, tfpassadminsw, tfpasstelsw, tfvlanadminsw, tfmaskadminsw;
 	JButton btcalc, btapagar;
@@ -40,7 +50,7 @@ public class trab_1_0 extends JFrame
 	JComboBox [] ComboSwitch = new JComboBox[8];
 	JComboBox [] ComboSwitchvlan = new JComboBox[8];
 	String [] titulo = {"Rede","Vlan","Nr de Hosts","IP de Rede","Prineiro Host","Gateway de Rede","IP de Broadcast","CIDR", "Subnetmask","Observações"};
-	String [][] Data = new String[5][10];
+	String [][] Data = new String[25][10];
 	String [] stSwitch = {"Activo","Porta","Vlan"};
 	ArrayList<String> CBswitch = new ArrayList<String>();
 	ArrayList<String> CBrouter = new ArrayList<String>();
@@ -78,11 +88,14 @@ public class trab_1_0 extends JFrame
 	ArrayList<String> CBIntwanport = new ArrayList<String>();
 	JTextField [] tfipaddwanRouter = new JTextField[2];
 	JComboBox [] cdSNMwanrouter = new JComboBox[2];
-	ArrayList<String> CBsnmwanport = new ArrayList<String>();
 	JRadioButton[] rbsubsimwanrouter = new JRadioButton[2];
 	JRadioButton[] rbsubnaowanrouter = new JRadioButton[2];
 	ButtonGroup [] bgsubwanrouter = new ButtonGroup[2];
-	JTextField [] tfRedewanrouter = new JTextField[2];
+	ArrayList<String> CBwanprot = new ArrayList<String>();
+	JComboBox [] cbProwanrouter = new JComboBox[2];
+	
+	//tab programaçao
+	JTextArea taprog = new JTextArea();
 	
 	public trab_1_0()
 	{
@@ -92,17 +105,15 @@ public class trab_1_0 extends JFrame
 		dim = tlk.getScreenSize();
 
 		mnb = new JMenuBar();
-		mn1 = new JMenu("Algo");
+		mn1 = new JMenu("Opções");
 		mnb.add(mn1);
-		mni[0] = new JMenuItem("1Algo1");
-		mni[1] = new JMenuItem("1Algo2");
+		mni[0] = new JMenuItem("Apagar");
+		mni[0].addActionListener(this);
+		mni[1] = new JMenuItem("Sair");
+		mni[1].addActionListener(this);
 		mn1.add(mni[0]);
-		mn1.addSeparator();
 		mn1.add(mni[1]);
-		mni[2] = new JMenuItem("2Algo1");
-		mn2 = new JMenu("Algo2");
-		mn2.add(mni[2]);
-		mnb.add(mn2);
+		mnb.add(mn1);
 		setJMenuBar(mnb);
 
 
@@ -113,22 +124,27 @@ public class trab_1_0 extends JFrame
 		northcalc = new JPanel();
 		lbnetworks = new JLabel("Nr de redes");
 		northcalc.add(lbnetworks);
-		tfaddress = new JTextField(12);
-		northcalc.add(tfaddress);
-		lbaddress = new JLabel("Ip base");
-		northcalc.add(lbaddress);
-		tfsubnetmask = new JTextField(12);
-		northcalc.add(tfsubnetmask);
-		lbsubnetmask = new JLabel("Subnetmask");
-		northcalc.add(lbsubnetmask);
 		tfnetworks = new JTextField(12);
 		northcalc.add(tfnetworks);
+		
+		lbaddress = new JLabel("Ip base");
+		northcalc.add(lbaddress);
+		tfaddress = new JTextField(12);
+		northcalc.add(tfaddress);
+		
+		lbsubnetmask = new JLabel("Subnetmask");
+		northcalc.add(lbsubnetmask);
+		tfsubnetmask = new JTextField(12);
+		northcalc.add(tfsubnetmask);
+		
 		calc.add(northcalc, BorderLayout.NORTH);
+		
 		tabela = new JTable(Data,titulo);
 		scrollcalc = new JScrollPane(tabela);
 		calc.add(scrollcalc, BorderLayout.CENTER);
 		southcalc = new JPanel();
 		btcalc = new JButton("Calcular");
+		btcalc.addActionListener(this);
 		southcalc.add(btcalc);
 		calc.add(southcalc, BorderLayout.SOUTH);
 		tabsdir.add("Calculadora",calc);
@@ -607,8 +623,58 @@ public class trab_1_0 extends JFrame
 			j = j + 20;
 		}
 		
-			
-			
+		j = 0 ; 
+		for(int i = 0 ; i < 2 ; i++ )
+		{
+			cbIntwanport[i] = new JComboBox(arraysnmlanport);
+			cbIntwanport[i].setBounds((dim.width/11) + 280 , (dim.height/2) + 180 + j, 125 , 20);
+			router.add(cbIntwanport[i]);
+			j = j + 20;
+		}	
+		
+		
+		
+		j = 0 ;
+		for(int i = 0 ; i < 2 ; i++)
+		{
+			bgsubwanrouter[i] = new ButtonGroup();
+			rbsubsimwanrouter[i] = new JRadioButton("Sim");
+			rbsubsimwanrouter[i].setBounds((dim.width/11) + 440 , (dim.height/2) + 180 + j, 50 , 20);
+			bgsubwanrouter[i].add(rbsubsimwanrouter[i]);
+			router.add(rbsubsimwanrouter[i]);
+			rbsubnaowanrouter[i] = new JRadioButton("Não");
+			rbsubnaowanrouter[i].setBounds((dim.width/11) + 510, (dim.height/2) + 180 + j, 50 , 20);
+			rbsubnaowanrouter[i].setSelected(true);
+			bgsubwanrouter[i].add(rbsubnaowanrouter[i]);
+			router.add(rbsubnaowanrouter[i]);	
+			j = j + 20;
+		}
+		
+		
+		CBwanprot.add("Rip");
+		CBwanprot.add("Rip2");
+		CBwanprot.add("Eigrp");
+		
+		String[] arrayintwanprot = new String[CBwanprot.size()];
+		for(int i = 0; i < arrayintwanprot.length; i++) {
+			arrayintwanprot[i] = CBwanprot.get(i);
+		}
+		
+		j = 0 ;
+		for(int i = 0 ; i < 2; i++)
+		{
+			cbProwanrouter[i] = new JComboBox(arrayintwanprot);
+			cbProwanrouter[i].setBounds((dim.width/11) + 600, (dim.height/2) + 180 + j, 50 , 20);
+			router.add(cbProwanrouter[i]);
+			j = j + 20;
+		}
+		
+		
+		prog = new JPanel(new BorderLayout());
+		taprog = new JTextArea("");
+		prog.add(taprog, BorderLayout.CENTER);
+		tabsdir.add("Programaçao",prog);
+		
 		setBounds(5,5,dim.width - 10, dim.height - 50);
 		setVisible(true);
 		setResizable(true);
@@ -618,4 +684,70 @@ public class trab_1_0 extends JFrame
 	{
 		trab_1_0 app = new trab_1_0();
 	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource() == mni[0])
+		{
+			
+		}
+		if(e.getSource() == mni[1])
+		{
+			System.exit(0);
+		}
+		if(e.getSource() == btcalc)
+		{
+			Calc();
+			//Data[0][0] = "ola";
+			//repaint();
+		}
+		
+	}
+	public void Calc()
+	{
+		int nrredes = Integer.parseInt(tfnetworks.getText());
+		String ip = tfaddress.getText();
+		String snm = tfsubnetmask.getText();
+		String[] base = ip.split("\\.");
+		int nrhosts = 0 ;
+		int ipbase = 0;
+		
+		if(nrredes == 0 )
+		{
+			JOptionPane.showMessageDialog(null, "O numero de redes nao pode ser 0" , "Caixa de informaçao", JOptionPane.ERROR_MESSAGE);
+		}
+		if(nrredes > 25)
+		{
+			JOptionPane.showMessageDialog(null, "Nr de Redes excede 25" , "Caixa de informaçao", JOptionPane.ERROR_MESSAGE);
+		}
+		
+		if(base.length != 4)
+		{
+			JOptionPane.showMessageDialog(null, "O Ip base introduzido esta errado" , "Caixa de informaçao", JOptionPane.ERROR_MESSAGE);
+			ipbase = Integer.parseInt(base[3]);
+		}
+		
+			for(int i = 0 ; i < 7 ; i++)
+			{
+				if(snm == stSNM[i])
+				{
+					nrhosts = 255;
+				}
+			}
+			for(int i = 0 ; i < nrredes ; i++)
+			{
+				String out = base[0]+"."+base[1]+"."+base[2]+"."+Integer.toString(ipbase);
+				Data[i][0] = out;
+				ipbase = ipbase + nrhosts;
+				repaint();
+			}
+		
+		repaint();
+	}
+	
+	
+	
+	
+	
 }
