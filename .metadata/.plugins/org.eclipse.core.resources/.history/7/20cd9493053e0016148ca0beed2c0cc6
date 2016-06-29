@@ -32,6 +32,7 @@ public class Client extends JFrame {
 	
 	Toolkit tlk;
 	Dimension dim;
+	int larg = 0, alt = 0;
 	
 	
 	/**
@@ -55,7 +56,10 @@ public class Client extends JFrame {
 	 */
 	public Client() {
 		
-		
+		tlk = getToolkit();
+		dim = tlk.getScreenSize();
+		larg = dim.width ;
+		alt = dim.height;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1200, 750);
 		
@@ -78,34 +82,40 @@ public class Client extends JFrame {
 		content.add(panel);
 		panel.setLayout(null);
 		
+		JLabel label = new JLabel("Nome de Utilizador");
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setFont(new Font("Arial", Font.PLAIN, 14));
+		label.setBounds((larg - 70)/2,(alt - 10)/2 + 100, 125, 20);
+		panel.add(label);
+		
 		JLabel lblNome = new JLabel("Nome de Utilizador");
 		lblNome.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNome.setFont(new Font("Arial", Font.PLAIN, 17));
-		lblNome.setBounds(525,150, 150, 20);
+		lblNome.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblNome.setBounds((larg - 70)/2,(alt - 10)/2, 125, 20);
 		panel.add(lblNome);
-		
-		tfNome = new JTextField();
-		tfNome.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNome.setLabelFor(tfNome);
-		tfNome.setBounds(535, 180, 130, 20);
-		panel.add(tfNome);
-		tfNome.setColumns(10);
 		
 		JLabel lblPass = new JLabel("Palavra-Passe");
 		lblPass.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPass.setFont(new Font("Arial", Font.PLAIN, 17));
-		lblPass.setBounds(535, 250, 130, 20);
+		lblPass.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblPass.setBounds(623, 248, 119, 14);
 		panel.add(lblPass);
 		
+		tfNome = new JTextField();
+		lblNome.setLabelFor(tfNome);
+		tfNome.setText("nome");
+		tfNome.setBounds(642, 176, 86, 20);
+		panel.add(tfNome);
+		tfNome.setColumns(10);
+		
 		tfPass = new JTextField();
-		tfPass.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPass.setLabelFor(tfPass);
-		tfPass.setBounds(535, 280, 130, 20);
+		tfPass.setText("pass");
+		tfPass.setBounds(659, 281, 86, 20);
 		panel.add(tfPass);
 		tfPass.setColumns(10);
 		
 		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(535, 337, 130, 35);
+		btnNewButton.setBounds(659, 337, 89, 23);
 		panel.add(btnNewButton);
 	}
 }

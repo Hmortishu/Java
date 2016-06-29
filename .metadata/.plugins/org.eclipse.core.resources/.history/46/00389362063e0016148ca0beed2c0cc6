@@ -87,6 +87,7 @@ public class Client extends JFrame {
 		tfNome = new JTextField();
 		tfNome.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNome.setLabelFor(tfNome);
+		tfNome.setText("nome");
 		tfNome.setBounds(535, 180, 130, 20);
 		panel.add(tfNome);
 		tfNome.setColumns(10);
@@ -100,6 +101,7 @@ public class Client extends JFrame {
 		tfPass = new JTextField();
 		tfPass.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPass.setLabelFor(tfPass);
+		tfPass.setText("pass");
 		tfPass.setBounds(535, 280, 130, 20);
 		panel.add(tfPass);
 		tfPass.setColumns(10);
