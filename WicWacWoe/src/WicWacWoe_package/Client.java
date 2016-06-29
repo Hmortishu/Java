@@ -17,6 +17,7 @@ public class Client extends JFrame implements ActionListener {
 	};
 	String horde ="img/h.jpg";
 	String alliance ="img/a.jpg";
+	
 	JButton [] btGalo = new JButton[9];
 	JButton btGuide1, btGuide2;
 	JPanel unico, bot;
@@ -34,12 +35,11 @@ public class Client extends JFrame implements ActionListener {
 		for(int i = 0 ; i < 9 ; i++)
 		{
 
-			btGalo[k] = new JButton();
-			ImageIcon img = new ImageIcon(new ImageIcon(nove[k]).getImage().getScaledInstance((dim.width-50)/3, (dim.height-50)/3, Image.SCALE_DEFAULT));
-			btGalo[k].setIcon(img);
-			btGalo[k].addActionListener(this);
-			unico.add(btGalo[k]);
-			k++;
+			btGalo[i] = new JButton();
+			ImageIcon img = new ImageIcon(new ImageIcon(nove[i]).getImage().getScaledInstance((dim.width-50)/3, (dim.height-50)/3, Image.SCALE_DEFAULT));
+			btGalo[i].setIcon(img);
+			btGalo[i].addActionListener(this);
+			unico.add(btGalo[i]);
 
 		}
 
@@ -66,53 +66,60 @@ public class Client extends JFrame implements ActionListener {
 				System.exit(0);
 			}
 		});
-		if(jogadas==9)
-		{
-			actionPerformed();
-		}
 	}
 
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+	public void actionPerformed(ActionEvent e) 
+	{
 		ImageIcon imgH = new ImageIcon(new ImageIcon(horde).getImage().getScaledInstance((dim.width-50)/3, (dim.height-50)/3, Image.SCALE_DEFAULT));
 		ImageIcon imgA = new ImageIcon(new ImageIcon(alliance).getImage().getScaledInstance((dim.width-50)/3, (dim.height-50)/3, Image.SCALE_DEFAULT));
+		// TODO Auto-generated method stub
+		
 		for(int i = 0 ; i < 9 ; i++)
 		{
 			if(e.getSource()==btGalo[i])
 			{
-				if(jogadas == 8)
+				System.out.printf("%d", jogadas%2);
+				if(jogadas % 2 == 0)
 				{
-					actionPerformed(btGuide1);
-				}
-				else if(jogadas%2 == 0 )
-				{
-					btGalo[i].setIcon(imgA);
 					btGalo[i].removeActionListener(this);
+					btGalo[i].setIcon(imgA);
+					vitAlli();
 					jogadas++;
+					
 				}
 				else
 				{
-					btGalo[i].setIcon(imgH);
 					btGalo[i].removeActionListener(this);
+					btGalo[i].setIcon(imgH);
+					vitHorde();
 					jogadas++;
 				}
 			}
 		}
+		
 		if(e.getSource() == btGuide1)
 		{
-			k = 0 ;
 			jogadas = 0 ;
 			for(int i = 0 ; i < 9 ; i++)
 			{
-				ImageIcon img = new ImageIcon(new ImageIcon(nove[k]).getImage().getScaledInstance((dim.width-50)/3, (dim.height-50)/3, Image.SCALE_DEFAULT));
-				btGalo[k].setIcon(img);
-				btGalo[k].addActionListener(this);
-				k++;
-
+				ImageIcon img = new ImageIcon(new ImageIcon(nove[i]).getImage().getScaledInstance((dim.width-50)/3, (dim.height-50)/3, Image.SCALE_DEFAULT));
+				btGalo[i].setIcon(img);
+				btGalo[i].addActionListener(this);
 			}		
-			
 		}
+		if(e.getSource() == btGuide2)
+		{
+			System.exit(0);
+		}
+	}
+	public void vitAlli()
+	{
+		
+	}
+	public void vitHorde()
+	{
+		
 	}
 }

@@ -1,0 +1,103 @@
+package ufcd;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JMenu;
+import javax.swing.JTabbedPane;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.CardLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+
+public class Client extends JFrame {
+
+	private JPanel content;
+	private JTextField tfNome;
+	private JTextField tfPass;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Client frame = new Client();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Client() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1200, 750);
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mnOpcoes = new JMenu("Opções");
+		menuBar.add(mnOpcoes);
+		
+		JMenuItem mniNCliente = new JMenuItem("Novo Cliente");
+		mnOpcoes.add(mniNCliente);
+		
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Nova Avaria");
+		mnOpcoes.add(mntmNewMenuItem_1);
+		content = new JPanel();
+		content.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(content);
+		content.setLayout(new GridLayout(0, 1, 0, 0));
+		JPanel panel = new JPanel();
+		content.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNome = new JLabel("Nome de Utilizador");
+		lblNome.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNome.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblNome.setBounds(346, 121, 124, 17);
+		panel.add(lblNome);
+		
+		JLabel lblPass = new JLabel("Palavra-Passe");
+		lblPass.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPass.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblPass.setBounds(346, 197, 119, 14);
+		panel.add(lblPass);
+		
+		tfNome = new JTextField();
+		lblNome.setLabelFor(tfNome);
+		tfNome.setText("nome");
+		tfNome.setBounds(358, 166, 86, 20);
+		panel.add(tfNome);
+		tfNome.setColumns(10);
+		
+		tfPass = new JTextField();
+		lblPass.setLabelFor(tfPass);
+		tfPass.setText("pass");
+		tfPass.setBounds(358, 249, 86, 20);
+		panel.add(tfPass);
+		tfPass.setColumns(10);
+		
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.setBounds(358, 292, 89, 23);
+		panel.add(btnNewButton);
+	}
+}

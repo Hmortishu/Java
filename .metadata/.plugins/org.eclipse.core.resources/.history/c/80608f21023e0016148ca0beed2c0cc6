@@ -1,0 +1,99 @@
+package ufcd;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JMenu;
+import javax.swing.JTabbedPane;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.CardLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+
+public class Client extends JFrame {
+
+	private JPanel content;
+	private JTextField textField;
+	private JTextField textField_1;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Client frame = new Client();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Client() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1200, 750);
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mnOpcoes = new JMenu("Opções");
+		menuBar.add(mnOpcoes);
+		
+		JMenuItem mniNCliente = new JMenuItem("Novo Cliente");
+		mnOpcoes.add(mniNCliente);
+		
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Nova Avaria");
+		mnOpcoes.add(mntmNewMenuItem_1);
+		content = new JPanel();
+		content.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(content);
+		content.setLayout(new GridLayout(0, 1, 0, 0));
+		JPanel panel = new JPanel();
+		content.add(panel);
+		panel.setLayout(null);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(-10013, -10056, 1174, 681);
+		panel.add(textField_1);
+		textField_1.setColumns(10);
+		
+		JLabel lblPass = new JLabel("Palavra-Passe");
+		lblPass.setBounds(-10013, -10056, 1174, 681);
+		panel.add(lblPass);
+		
+		JLabel lblNome = new JLabel("Nome de Utilizador");
+		lblNome.setBounds(-10013, -10056, 1174, 681);
+		panel.add(lblNome);
+		lblPass.setLabelFor(textField);
+		
+		textField = new JTextField();
+		textField.setBounds(-10013, -10056, 1174, 681);
+		panel.add(textField);
+		textField.setColumns(10);
+		
+		JLabel label = new JLabel("");
+		label.setBounds(-10013, -10056, 1174, 681);
+		panel.add(label);
+		
+		JButton btLogin = new JButton("Entrar");
+		btLogin.setBounds(0, 0, 1174, 681);
+		panel.add(btLogin);
+	}
+
+}
