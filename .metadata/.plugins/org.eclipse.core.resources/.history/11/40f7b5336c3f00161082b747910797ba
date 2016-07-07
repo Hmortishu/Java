@@ -1,0 +1,194 @@
+package ufcd;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JMenu;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import java.awt.BorderLayout;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JComboBox;
+import javax.swing.JLayeredPane;
+import javax.swing.DefaultComboBoxModel;
+
+
+public class Client extends JFrame implements ActionListener {
+
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/*
+	 * Variaveis para o painel Login
+	 */
+	JPanel login;
+	JMenuBar menuBar;
+	JMenu mnOpcoes;
+	JMenuItem mniNCliente, mniNAvaria;
+	JLabel lblNome, lblPass;
+	JTextField tfNome, tfPass;
+	JButton btLogin;
+	
+	
+	/*
+	 * Variaveis para o conteudo tabbed
+	 */
+	JTabbedPane conteudo;
+	//Painel Cliente
+	JPanel cliente;
+	
+	//Painel Avarias
+	JPanel avarias, selAvarias;
+	JLabel lbl;
+	JScrollPane panAvaria;
+	JTable tabelaAvaria;
+	JComboBox<Object> cbProavarias;
+	JTextField tfSel;
+	JButton btSel;
+	String [] titulo = {"Nr de Cliente","Nome","Nif","Codigo Postal","Email","Morada"};
+	String [][] Data = new String[1][6];
+	
+	public Client() {
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1200, 750);
+		
+		menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		mnOpcoes = new JMenu("Opções");
+		menuBar.add(mnOpcoes);
+		
+		mniNCliente = new JMenuItem("Novo Cliente");
+		mnOpcoes.add(mniNCliente);
+		
+		mniNAvaria = new JMenuItem("Nova Avaria");
+		mnOpcoes.add(mniNAvaria);
+		
+		//Painel LOGIN
+		login = new JPanel();
+		login.setLayout(null);
+		getContentPane().add(login);
+		
+		lblNome = new JLabel("Nome de Utilizador");
+		lblNome.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNome.setFont(new Font("Arial", Font.PLAIN, 17));
+		lblNome.setBounds(525,150, 150, 20);
+		lblNome.setLabelFor(tfNome);
+		login.add(lblNome);
+		
+		tfNome = new JTextField();
+		tfNome.setHorizontalAlignment(SwingConstants.CENTER);
+		tfNome.setBounds(535, 180, 130, 20);
+		tfNome.setColumns(10);
+		login.add(tfNome);
+		
+		lblPass = new JLabel("Palavra-Passe");
+		lblPass.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPass.setFont(new Font("Arial", Font.PLAIN, 17));
+		lblPass.setBounds(535, 250, 130, 20);
+		lblPass.setLabelFor(tfPass);
+		login.add(lblPass);
+		
+		tfPass = new JTextField();
+		tfPass.setHorizontalAlignment(SwingConstants.CENTER);
+		tfPass.setBounds(535, 280, 130, 20);
+		tfPass.setColumns(10);
+		login.add(tfPass);
+		
+		btLogin = new JButton("Entrar!");
+		btLogin.setBounds(535, 337, 130, 35);
+		btLogin.addActionListener(this);
+		login.add(btLogin);
+		///Fim do Login
+		
+		//Inicio do tabed conteudo.
+		conteudo = new JTabbedPane();
+		
+		/*
+		 *Avarias
+		 */
+		avarias = new JPanel();
+		avarias.setLayout(new BorderLayout(0, 0));
+		conteudo.addTab("Avarias", avarias);
+	
+		selAvarias = new JPanel();
+		lbl = new JLabel("Prourar por");
+		selAvarias.add(lbl);
+		cbProavarias = new JComboBox<Object>();
+		cbProavarias.setModel(new DefaultComboBoxModel<Object>(new String[] {"Cliente", "Colaborador", "Tipo de Equipamento", "Mes"}));
+		selAvarias.add(cbProavarias);
+		tfSel = new JTextField();
+		tfSel.setColumns(10);
+		selAvarias.add(tfSel);
+		btSel = new JButton("Procurar");
+		selAvarias.add(btSel);
+		avarias.add(selAvarias, BorderLayout.NORTH);
+		
+		tabelaAvaria = new JTable(Data, titulo);
+		panAvaria = new JScrollPane(tabelaAvaria);
+		
+		avarias.add(panAvaria, BorderLayout.CENTER);
+		/*
+		 *CLientes 
+		 */
+		cliente = new JPanel();
+		conteudo.addTab("Clientes",cliente);
+		getContentPane().add(conteudo);
+		
+	}
+
+
+	public static void main(String[] args) 
+	{
+		EventQueue.invokeLater(new Runnable() 
+		{
+			public void run() 
+			{
+				try {
+					Client frame = new Client();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource() == btLogin)
+		{
+			Entrar(tfNome.getText(), tfPass.getText());
+		}
+	}
+	
+	/*
+	 * Corre o Login.
+	 */
+	public void Entrar(String N, String P)
+	{
+		String nome = "username";
+		String pass = "password";
+		if(N.equals(nome)&& P.equals(pass))
+		{
+			login.setVisible(false);
+			getContentPane().add(conteudo);
+		}
+	}
+}

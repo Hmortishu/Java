@@ -1,9 +1,0 @@
-package Electronica_package;
-
-public class Shunt {
-
-	public Shunt() {
-		// TODO Auto-generated constructor stub
-	}
-
-}

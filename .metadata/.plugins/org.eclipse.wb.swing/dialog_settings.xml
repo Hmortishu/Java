@@ -12,4 +12,10 @@
 		<item value="240" key="y"/>
 		<item value="380" key="height"/>
 	</section>
+	<section name="org.eclipse.wb.internal.swing.model.property.editor.models.combo.ComboBoxModelDialog">
+		<item value="800" key="x"/>
+		<item value="476" key="width"/>
+		<item value="248" key="y"/>
+		<item value="364" key="height"/>
+	</section>
 </section>
