@@ -7,7 +7,6 @@ INDEX VERSION 1.127+C:\Users\Formando\Documents\GitHub\Java\.metadata\.plugins\o
 430205200.index
 2261558828.index
 1507339265.index
-3418702425.index
 1670528678.index
 1484076330.index
 3678980623.index
@@ -17,7 +16,6 @@ INDEX VERSION 1.127+C:\Users\Formando\Documents\GitHub\Java\.metadata\.plugins\o
 2945162093.index
 83085761.index
 3930511455.index
-2381757407.index
 2415794826.index
 3764404749.index
 4142306923.index
