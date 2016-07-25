@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="Electronica/src"/>
+	<classpathentry kind="src" path="plz"/>
+	<classpathentry kind="src" path="ufcd/src"/>
+	<classpathentry kind="src" path="WicWacWoe/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="ufcd/bin"/>
+</classpath>

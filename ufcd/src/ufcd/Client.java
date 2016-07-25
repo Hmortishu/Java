@@ -1,5 +1,5 @@
 /*
- * Criação da base de dados
+ * Criaï¿½ï¿½o da base de dados
  * create table if not exists Cliente
   				(id_cliente smallint not null auto_increment,
 				nomeCliente varchar(255) not null,
@@ -56,14 +56,17 @@ public class Client extends JFrame implements ActionListener {
 	 /**
 	 * variaveis que importao ai proprio programa
 	 */
+
+	static Client frame;
 	private static final long serialVersionUID = 1L;
-	String tipo, it = "IT";
+	String tipo = "IT", it = "IT";
 	/*
 	 * Variaveis para o MenuBar
 	 */
 	JMenuBar menuBar;
-	JMenu mnOpcoes;
-	JMenuItem mniNUtilizador, mniNAvaria;
+	JMenu mnRegistar, mnVer;
+	JMenuItem mniNUtilizador, mniNAvaria, mniNCliente;
+	JMenuItem mniVerAvaria, mniVerCliente;
 	
 	/*
 	 * Variaveis para o painel Login
@@ -79,8 +82,6 @@ public class Client extends JFrame implements ActionListener {
 	 * Variaveis para o conteudo tabbed
 	 */
 	JTabbedPane conteudo;
-	//Painel Cliente
-	JPanel cliente;
 	
 	//Painel Avarias
 	JPanel avarias, selAvarias;
@@ -88,10 +89,20 @@ public class Client extends JFrame implements ActionListener {
 	JScrollPane panAvaria;
 	JTable tabelaAvaria;
 	JComboBox<Object> cbProavarias;
-	JTextField tfSel;
-	JButton btSel;
-	String [] titulo = {"Nr de Cliente","Nome","Nif","Codigo Postal","Email","Morada"};
-	String [][] Data = new String[150][6];
+	JTextField tfSelAvaria;
+	JButton btSelAvaria;
+	String [] tituloAvaria = {"NR de Avaria","Cliente","Estado","Tipo de equipamento","Preco",""};
+	Object [][] DataAvaria = new Object [50][6];
+	
+	//Painel Clientes
+	JPanel cliente, selCliente;
+	JScrollPane panCliente;
+	JTable tabelaCliente;
+	JComboBox<Object> cbProcliente;
+	JTextField tfSelCliente;
+	JButton btSelCliente;
+	String [] tituloCliente = {"NR de Cliente","Nome","Cidade","Telemovel","Email",""};
+	Object [][] DataCliente = new Object [50][6];
 	
 	//Painel NovoUtilizador
 	JPanel novoUtilizador;
@@ -109,7 +120,7 @@ public class Client extends JFrame implements ActionListener {
 	
 	
 	/*
-	 * Variaveis para a conecção
+	 * Variaveis para a conecï¿½ï¿½o
 	 */
 	static Connection con = null;	 
 	 
@@ -122,16 +133,32 @@ public class Client extends JFrame implements ActionListener {
 		
 		menuBar = new JMenuBar();
 		
-		mnOpcoes = new JMenu("Opções");
-		menuBar.add(mnOpcoes);
+		mnRegistar = new JMenu("Registo");
+		menuBar.add(mnRegistar);
 		
 		mniNUtilizador = new JMenuItem("Novo Utilizador");
 		mniNUtilizador.addActionListener(this);
-		mnOpcoes.add(mniNUtilizador);
+		mnRegistar.add(mniNUtilizador);
 		
 		mniNAvaria = new JMenuItem("Nova Avaria");
 		mniNAvaria.addActionListener(this);
-		mnOpcoes.add(mniNAvaria);
+		mnRegistar.add(mniNAvaria);
+		
+		mniNCliente = new JMenuItem("Nova Cliente");
+		mniNCliente.addActionListener(this);
+		mnRegistar.add(mniNCliente);
+		
+		mnVer = new JMenu("Visualizar");
+		
+		mniVerCliente = new JMenuItem("Ver Perfil de Cliente");
+		mniVerCliente.addActionListener(this);
+		mnVer.add(mniVerCliente);
+		
+		mniVerAvaria = new JMenuItem("Ver Detalhes de Avaria");
+		mniVerAvaria.addActionListener(this);
+		mnVer.add(mniVerAvaria);
+		
+		menuBar.add(mnVer);
 		
 		//Painel LOGIN
 		login = new JPanel();
@@ -182,27 +209,46 @@ public class Client extends JFrame implements ActionListener {
 		conteudo.addTab("Avarias", avarias);
 	
 		selAvarias = new JPanel();
-		lbl = new JLabel("Prourar por");
+		lbl = new JLabel("Prourar avaria por");
 		selAvarias.add(lbl);
 		cbProavarias = new JComboBox<Object>();
 		cbProavarias.setModel(new DefaultComboBoxModel<Object>(new String[] {"Cliente", "Colaborador", "Tipo de Equipamento", "Mes"}));
 		selAvarias.add(cbProavarias);
-		tfSel = new JTextField();
-		tfSel.setColumns(10);
-		selAvarias.add(tfSel);
-		btSel = new JButton("Procurar");
-		selAvarias.add(btSel);
+		tfSelAvaria = new JTextField();
+		tfSelAvaria.setColumns(10);
+		selAvarias.add(tfSelAvaria);
+		btSelAvaria = new JButton("Procurar");
+		selAvarias.add(btSelAvaria);
 		avarias.add(selAvarias, BorderLayout.NORTH);
 		
-		tabelaAvaria = new JTable(Data, titulo);
+		tabelaAvaria = new JTable(DataAvaria, tituloAvaria);
 		panAvaria = new JScrollPane(tabelaAvaria);
-		
 		avarias.add(panAvaria, BorderLayout.CENTER);
 		
-		 //CLientes 
-		 
+		
+		/*
+		 *Clientes
+		*/
 		cliente = new JPanel();
-		conteudo.addTab("Clientes",cliente);
+		cliente.setLayout(new BorderLayout());
+		conteudo.addTab("Clientes", cliente);
+	
+		selCliente = new JPanel();
+		lbl = new JLabel("Prourar cliente por");
+		selCliente.add(lbl);
+		cbProcliente = new JComboBox<Object>();
+		cbProcliente.setModel(new DefaultComboBoxModel<Object>(new String[] {"Nome", "Nif", "Cidade", "Estado"}));
+		selCliente.add(cbProcliente);
+		tfSelCliente = new JTextField();
+		tfSelCliente.setColumns(10);
+		selCliente.add(tfSelCliente);
+		btSelCliente = new JButton("Procurar");
+		selCliente.add(btSelCliente);
+		cliente.add(selCliente, BorderLayout.NORTH);
+		
+		tabelaCliente = new JTable(DataCliente, tituloCliente);
+		panCliente = new JScrollPane(tabelaCliente);
+		cliente.add(panCliente, BorderLayout.CENTER);
 		
 		//o painel de registo Novo Utilizador
 		novoUtilizador = new JPanel();
@@ -344,8 +390,7 @@ public class Client extends JFrame implements ActionListener {
 		lblNACliente.setFont(new Font("Arial", Font.PLAIN, 17));
 		novaAvaria.add(lblNACliente);
 		
-		tfNACliente = new JTextField();
-		tfNACliente.setPlaceh
+		tfNACliente = new JTextField("Sem registo");
 		tfNACliente.setHorizontalAlignment(SwingConstants.CENTER);
 		tfNACliente.setBounds(560, 380, 80, 20);
 		novaAvaria.add(tfNACliente);
@@ -375,7 +420,7 @@ public class Client extends JFrame implements ActionListener {
 		
 		
 		setResizable(false);
-		setBounds(100, 100, 1200, 750);
+		setBounds(230, 100, 1200, 750);
 	}
 
 
@@ -387,7 +432,7 @@ public class Client extends JFrame implements ActionListener {
 			public void run() 
 			{
 				try {
-					Client frame = new Client();
+					frame = new Client();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -397,17 +442,24 @@ public class Client extends JFrame implements ActionListener {
 	}
 
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource() == btLogin)
 		{
-			try {
+			this.add(conteudo);
+			this.remove(login);
+			this.setJMenuBar(menuBar);
+			this.doLayout();
+			this.validate();
+			/*try {
 				Login(tfNome.getText(), tfPass.getText());
+				
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}
+			}*/
 		}
 		if(e.getSource() == mniNUtilizador)
 		{
@@ -424,7 +476,7 @@ public class Client extends JFrame implements ActionListener {
 			else
 			{
 				JOptionPane.showMessageDialog(this,
-				    "Esta opção apenas se encontra disponivel para o IT",
+				    "Esta opï¿½ï¿½o apenas se encontra disponivel para o IT",
 				    "Erro de Acesso",
 				    JOptionPane.ERROR_MESSAGE);
 			}
@@ -467,6 +519,13 @@ public class Client extends JFrame implements ActionListener {
 			this.validate();
 		}
 		
+		if(e.getSource()== mniVerAvaria){
+			AlterarAvaria NAvaria = new AlterarAvaria();
+			frame.setEnabled(false);
+			NAvaria.setVisible(true);
+			NAvaria.setAlwaysOnTop(true);
+		}
+		
 		if(e.getSource() == btNACancelar)
 		{
 			this.remove(novaAvaria);
@@ -480,7 +539,7 @@ public class Client extends JFrame implements ActionListener {
 	}
 	
 	/*
-	 * Codigo para a criação de um novo utilizador
+	 * Codigo para a criaï¿½ï¿½o de um novo utilizador
 	 */
 	public void NovoUtilizador(String N, String P) throws SQLException
 	{
@@ -493,7 +552,7 @@ public class Client extends JFrame implements ActionListener {
 			return;
 		}
 		getContentPane().add(novoUtilizador);
-		Conect();//Abir a conecçao
+		Conect();//Abir a conecï¿½ao
 		Statement st = null;
 		ResultSet rs = null;
 		st = con.createStatement();
@@ -544,13 +603,13 @@ public class Client extends JFrame implements ActionListener {
 	 */
 	public void Login(String N, String P) throws SQLException
 	{
-		Conect();//Abir a conecçao
+		Conect();//Abir a conecï¿½ao
 		Statement st = null;
 		ResultSet rs = null;
 		st = con.createStatement();
 	    String str_QUERY = "SELECT id_utilizador, tipoUtilizador FROM Utilizadores where loginUtilizador like '"+ N +"' AND passUtilizador like'"+ P +"';";
 	    rs = st.executeQuery(str_QUERY);//executa a query
-	    //se houver resultados apaga o painel login, fecha a conecçao.
+	    //se houver resultados apaga o painel login, fecha a conecï¿½ao.
 		if(rs.next())
 		{
 			tipo = rs.getString(2);
@@ -584,7 +643,7 @@ public class Client extends JFrame implements ActionListener {
 		     Class.forName(drive);
 		     con = DriverManager.getConnection(url, "root","");
 		     if (con != null)
-		       System.out.println("\n Sucesso na ligação a BD Dados \n");
+		       System.out.println("\n Sucesso na ligaï¿½ï¿½o a BD Dados \n");
 		 }catch( ClassNotFoundException e) {e.printStackTrace();}
 	}
 }
