@@ -44,7 +44,6 @@
 */
 package ufcd;
 
-import java.awt.EventQueue;
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
@@ -57,7 +56,7 @@ public class Client extends JFrame implements ActionListener {
 	 * variaveis que importao ai proprio programa
 	 */
 
-	static Client frame;
+	public static Client client;
 	private static final long serialVersionUID = 1L;
 	String tipo = "IT", it = "IT";
 	/*
@@ -118,12 +117,21 @@ public class Client extends JFrame implements ActionListener {
 	JTextArea taNADesc;
 	JButton btNARegisto, btNACancelar;
 	
+	//Painel Alterar Avaria
+	JPanel altAvaria;
+	JTextField tfAltTipo, tfAltDesc, tfaltPreco, tfAltData, tfAltCliente;
+	JTextArea taAltDesc;
+	JButton btAltRegisto, btAltCancelar;
+		
 	
 	/*
 	 * Variaveis para a conec��o
 	 */
 	static Connection con = null;	 
 	 
+	public void Visivel(boolean b){
+		client.setVisible(b);
+	}
 	
 	
 	public Client() {
@@ -419,6 +427,81 @@ public class Client extends JFrame implements ActionListener {
 		novaAvaria.add(btNACancelar);	
 		
 		
+		//Painel Alterar Avarias
+		altAvaria = new JPanel();	
+		altAvaria.setLayout(null);
+		
+		lbl = new JLabel("Tipo de equipamento");
+		lbl.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl.setFont(new Font("Arial", Font.PLAIN, 17));
+		lbl.setBounds(510, 30, 180, 20);
+		altAvaria.add(lbl);
+		
+		tfAltTipo = new JTextField();
+		tfAltTipo.setHorizontalAlignment(SwingConstants.CENTER);
+		tfAltTipo.setBounds(510, 75, 180, 20);
+		tfAltTipo.setColumns(10);
+		altAvaria.add(tfAltTipo);
+		
+		lbl = new JLabel("Descricao da Avaria");
+		lbl.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl.setFont(new Font("Arial", Font.PLAIN, 17));
+		lbl.setBounds(510, 120, 180, 20);
+		altAvaria.add(lbl);
+		
+		taAltDesc = new JTextArea();
+		taAltDesc.setLineWrap(true);
+		taAltDesc.setColumns(150);
+		taAltDesc.setBounds(480, 145, 240, 90);
+		altAvaria.add(taAltDesc);
+		
+		lbl = new JLabel("Preco");
+		lbl.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl.setFont(new Font("Arial", Font.PLAIN, 17));
+		lbl.setBounds(565, 275, 70, 20);
+		altAvaria.add(lbl);
+		
+		tfaltPreco = new JTextField();
+		tfaltPreco.setHorizontalAlignment(SwingConstants.CENTER);
+		tfaltPreco.setBounds(558, 300, 85, 20);
+		tfaltPreco.setColumns(10);
+		altAvaria.add(tfaltPreco);
+				
+		lbl = new JLabel("Cliente");
+		lbl.setBounds(570,340,60,20);
+		lbl.setFont(new Font("Arial", Font.PLAIN, 17));
+		altAvaria.add(lbl);
+		
+		tfAltCliente = new JTextField("Sem registo");
+		tfAltCliente.setHorizontalAlignment(SwingConstants.CENTER);
+		tfAltCliente.setBounds(560, 380, 80, 20);
+		altAvaria.add(tfAltCliente);
+		
+		lbl = new JLabel("Data");
+		lbl.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl.setFont(new Font("Arial", Font.PLAIN, 17));
+		lbl.setBounds(565, 450, 70, 20);
+		altAvaria.add(lbl);
+		
+		tfAltData = new JTextField();
+		tfAltData.setHorizontalAlignment(SwingConstants.CENTER);
+		tfAltData.setBounds(558, 475, 85, 20);
+		tfAltData.setColumns(10);
+		altAvaria.add(tfAltData);
+		
+		btAltRegisto = new JButton("Registar Avaria");
+		btAltRegisto.setFont(new Font("Arial", Font.PLAIN, 17));
+		btAltRegisto.addActionListener(this);
+		btAltRegisto.setBounds(510, 555, 170, 45);
+		altAvaria.add(btAltRegisto);
+		
+		btAltCancelar = new JButton("Cancelar");
+		btAltCancelar.setBounds(550, 620 ,100, 30);
+		btAltCancelar.addActionListener(this);
+		altAvaria.add(btAltCancelar);
+		
+		
+		
 		setResizable(false);
 		setBounds(230, 100, 1200, 750);
 	}
@@ -432,8 +515,8 @@ public class Client extends JFrame implements ActionListener {
 			public void run() 
 			{
 				try {
-					frame = new Client();
-					frame.setVisible(true);
+					client = new Client();
+					client.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -520,10 +603,10 @@ public class Client extends JFrame implements ActionListener {
 		}
 		
 		if(e.getSource()== mniVerAvaria){
-			AlterarAvaria NAvaria = new AlterarAvaria();
-			frame.setEnabled(false);
-			NAvaria.setVisible(true);
-			NAvaria.setAlwaysOnTop(true);
+			this.setJMenuBar(null);
+			this.remove(conteudo);
+			this.add(altAvaria);
+			this.validate();
 		}
 		
 		if(e.getSource() == btNACancelar)

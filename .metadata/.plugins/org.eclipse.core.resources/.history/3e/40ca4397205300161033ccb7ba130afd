@@ -1,0 +1,136 @@
+package ufcd;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+public class AlterarAvaria extends JFrame implements ActionListener{
+
+	JPanel contentPane;
+	//Painel NovaAvaria
+	JPanel altAvaria;
+	JLabel lbl;
+	JTextField tfAltTipo, tfAltDesc, tfaltPreco, tfAltData, tfAltCliente;
+	JTextArea taAltDesc;
+	JButton btAltRegisto, btAltCancelar;
+	
+	/**
+	 * Create the frame.
+	 */
+	public AlterarAvaria() {
+		
+		contentPane = new JPanel(new BorderLayout());
+		
+		
+		altAvaria = new JPanel();	
+		altAvaria.setLayout(null);
+		
+		lbl = new JLabel("Tipo de equipamento");
+		lbl.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl.setFont(new Font("Arial", Font.PLAIN, 17));
+		lbl.setBounds(410, 30, 180, 20);
+		altAvaria.add(lbl);
+		
+		tfAltTipo = new JTextField();
+		tfAltTipo.setHorizontalAlignment(SwingConstants.CENTER);
+		tfAltTipo.setBounds(410, 75, 180, 20);
+		tfAltTipo.setColumns(10);
+		altAvaria.add(tfAltTipo);
+		
+		lbl = new JLabel("Descricao da Avaria");
+		lbl.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl.setFont(new Font("Arial", Font.PLAIN, 17));
+		lbl.setBounds(410, 120, 180, 20);
+		altAvaria.add(lbl);
+		
+		taAltDesc = new JTextArea();
+		taAltDesc.setLineWrap(true);
+		taAltDesc.setColumns(150);
+		taAltDesc.setBounds(380, 145, 240, 90);
+		altAvaria.add(taAltDesc);
+		
+		lbl = new JLabel("Preco");
+		lbl.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl.setFont(new Font("Arial", Font.PLAIN, 17));
+		lbl.setBounds(465, 275, 70, 20);
+		altAvaria.add(lbl);
+		
+		tfaltPreco = new JTextField();
+		tfaltPreco.setHorizontalAlignment(SwingConstants.CENTER);
+		tfaltPreco.setBounds(458, 300, 85, 20);
+		tfaltPreco.setColumns(10);
+		altAvaria.add(tfaltPreco);
+				
+		lbl = new JLabel("Cliente");
+		lbl.setBounds(470,340,60,20);
+		lbl.setFont(new Font("Arial", Font.PLAIN, 17));
+		altAvaria.add(lbl);
+		
+		tfAltCliente = new JTextField("Sem registo");
+		tfAltCliente.setHorizontalAlignment(SwingConstants.CENTER);
+		tfAltCliente.setBounds(460, 380, 80, 20);
+		altAvaria.add(tfAltCliente);
+		
+		lbl = new JLabel("Data");
+		lbl.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl.setFont(new Font("Arial", Font.PLAIN, 17));
+		lbl.setBounds(465, 450, 70, 20);
+		altAvaria.add(lbl);
+		
+		tfAltData = new JTextField();
+		tfAltData.setHorizontalAlignment(SwingConstants.CENTER);
+		tfAltData.setBounds(458, 475, 85, 20);
+		tfAltData.setColumns(10);
+		altAvaria.add(tfAltData);
+		
+		btAltRegisto = new JButton("Registar Avaria");
+		btAltRegisto.setFont(new Font("Arial", Font.PLAIN, 17));
+		btAltRegisto.addActionListener(this);
+		btAltRegisto.setBounds(410, 555, 170, 45);
+		altAvaria.add(btAltRegisto);
+		
+		btAltCancelar = new JButton("Cancelar");
+		btAltCancelar.setBounds(410, 620 ,100, 30);
+		btAltCancelar.addActionListener(this);
+		altAvaria.add(btAltCancelar);
+		
+		contentPane.add(altAvaria, BorderLayout.CENTER);
+		setContentPane(contentPane);
+		setBounds(300, 100, 800, 750);
+		
+	}
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					AlterarAvaria frame = new AlterarAvaria();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}

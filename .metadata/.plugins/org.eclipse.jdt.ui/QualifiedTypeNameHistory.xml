@@ -12,4 +12,6 @@
 <fullyQualifiedTypeName name="java.sql.SQLException"/>
 <fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
 <fullyQualifiedTypeName name="javax.swing.JTextField"/>
+<fullyQualifiedTypeName name="ufcd.AlterarAvaria"/>
+<fullyQualifiedTypeName name="ufcd.Client"/>
 </qualifiedTypeNameHistroy>
